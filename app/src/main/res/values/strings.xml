@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">alamiya-task</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="dec_25_2024">DEC 25 2024</string>
+    <string name="mansoura_egypt_mahmudy_st">Mansoura,egypt,mahmudy st</string>
+    <string name="next_nprayer">Next \nPrayer</string>
+    <string name="isha">ISHA</string>
+    <string name="time_left_n_1_hr_16_min">....</string>
+    <string name="fajr">Fajr</string>
+    <string name="_4_50_am">4:50 AM</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="_6_05_am">6:05 AM</string>
+    <string name="duhr">Duhr</string>
+    <string name="_1_44_pm">1:44 PM</string>
+    <string name="asr">Asr</string>
+    <string name="_5_52_pm">5:52 PM</string>
+    <string name="maghrib">maghrib</string>
+    <string name="_9_23_pm">9:23 PM</string>
+    <string name="iisha">Isha</string>
+    <string name="S10_55_pm">10:55 PM</string>
+    <string name="show_qibla_diraction_on_map">show Qibla Diraction on map</string>
+</resources>
