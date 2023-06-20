@@ -34,5 +34,7 @@ https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/ee50aa29-f7
 # App-Arch
 ![Screenshot from 2023-06-20 17-41-23](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/094d34cc-5b32-493a-b4e1-4946f78ec95e)
 
+# In-App architecture
+![arch](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/a4a02bb5-58ca-4ac6-a9c6-153182644af5)
 
  
