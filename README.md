@@ -42,9 +42,9 @@ https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/ee50aa29-f7
 <li> Repository </li>
 
 # Features
-<ul> Simple UI </ul>
-<ul>Simple Animations</ul>
-<ul>cashing</ul>
+<li> Simple UI </li>
+<li>Simple Animations</li>
+<li>cashing</li>
 
 # Tools & APIs
 <ul>
@@ -53,7 +53,7 @@ https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/ee50aa29-f7
   <li>Dependency injection with dager Hilt</li>
   <li>Fused Location Provider API in Android</li>
   <li>Room DB</li>
-  <il>Open street maps</il>
+  <li>Open street maps</li>
   <li>Unit Testing</li>
   <li>Retrofit</li>
   <li>OkHttp</li>
