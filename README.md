@@ -1,4 +1,4 @@
-
+![image](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/4f2ca992-2f7f-40b1-826f-b4527c08ef0e)
 # AlalmiyaAlhura-Task
 </h1>
 <p dir="auto">
@@ -36,5 +36,11 @@ https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/ee50aa29-f7
 
 # In-App architecture
 ![arch](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/a4a02bb5-58ca-4ac6-a9c6-153182644af5)
+
+# Unit testing for:
+![Screenshot from 2023-06-20 17-48-24](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/cd582dec-d31f-41e1-b545-1c329e69940f)
+<li>Local Database</li>
+<li> Repository </li>
+
 
  
