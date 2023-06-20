@@ -12,3 +12,16 @@ AlalmiyaAlhura-Task
 <li> Showing Qibla direction line on the map screen.</li>
 <li> Change the live direction based on gyroscope sensor result (bonus points).</li>
 </p>
+
+
+
+# ScreenShots:
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+  <img src="https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/15558588-32d7-402e-8e62-622ed3f534f4" alt="Screenshot 1" width="200">
+  <img src="https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/2090cfc4-4a65-43c7-a83e-a3d23e388d7d" alt="Screenshot 2" width="200">
+  <img src="https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/8d626921-2439-4a0f-be7c-429da867f515" alt="Screenshot 3" width="200">
+  <img src="https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/d95765d1-6b0d-4b11-a3fd-49e6c0c3540a" alt="Screenshot 4" width="200">
+</div>
+
+
