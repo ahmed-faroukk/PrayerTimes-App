@@ -1,4 +1,3 @@
-![image](https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/4f2ca992-2f7f-40b1-826f-b4527c08ef0e)
 # AlalmiyaAlhura-Task
 </h1>
 <p dir="auto">
