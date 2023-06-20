@@ -42,5 +42,30 @@ https://github.com/ahmed-faroukk/AlalmiyaAlhura-Task/assets/72602749/ee50aa29-f7
 <li>Local Database</li>
 <li> Repository </li>
 
+# Features
+<ul> Simple UI </ul>
+<ul>Simple Animations</ul>
+<ul>cashing</ul>
+
+# Tools & APIs
+<ul>
+  <li>MVVM Arch</li>
+  <li>Clean architecture</li>
+  <li>Dependency injection with dager Hilt</li>
+  <li>Fused Location Provider API in Android</li>
+  <li>Room DB</li>
+  <il>Open street maps</il>
+  <li>Unit Testing</li>
+  <li>Retrofit</li>
+  <li>OkHttp</li>
+  <li>Sealed Classes</li>
+  <li>Kotlin Coroutines</li>
+  <li>Live Data</li>
+  <li>Navigation component</li>
+  <li>View binding</li>
+  <li>leakCanary</li>
+  <li>Observing your network connection with Flow</li>
+  <li>SplashScreen</li>
+</ul>
 
  
