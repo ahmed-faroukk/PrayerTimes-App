@@ -52,6 +52,8 @@ class LocationHelper(private val context: AppCompatActivity) {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSION_REQUEST_CODE
             )
+             fetchLocation(onLocationFetchedListener)
+
         }
     }
 
