@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Alamiyatask.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.Alamiyatask.AppWidgetContainer">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:cardCornerRadius="30dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="15dp"
+                >
+                <TextView
+                    android:id="@+id/appwidget_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/appwidget_text"
+                    android:text="Next Prayer Is"
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic" />
+                <TextView
+                    android:id="@+id/prayerName"
+                    style="@style/Widget.Alamiyatask.AppWidget.InnerView"
+                    android:layout_width="150dp"
+                    android:backgroundTint="#1C8722"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:paddingStart="25dp"
+                    android:contentDescription="@string/appwidget_text"
+                    android:gravity="center"
+                    android:text="FAJR"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/countDown"
+                android:layout_width="150dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:paddingStart="25dp"
+                android:contentDescription="@string/appwidget_text"
+                android:gravity="center"
+                android:text="1:25:23"
+                android:textColor="#69DF6E"
+                android:textSize="29sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

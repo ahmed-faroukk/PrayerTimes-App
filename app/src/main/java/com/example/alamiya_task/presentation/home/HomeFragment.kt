@@ -53,16 +53,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        locationHelper = LocationHelper(requireActivity() as AppCompatActivity)
         super.onViewCreated(view, savedInstanceState)
+        locationHelper = LocationHelper(requireActivity() as AppCompatActivity)
         getUserLocation()
-        initObservation()
         calendarHandler()
+        initObservation()
+
         binding.QiblaBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_qiblaFragment)
         }
@@ -279,6 +281,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+
+
     @SuppressLint("SetTextI18n")
     private fun decrementLogic() {
         if (currentDay > 1) {
@@ -287,6 +291,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.setDay(currentDay)
 
         } else {
+
             if (currentMonth == Month.JANUARY && currentDay == 1) {
                 currentYear -= 1
                 viewModel.setYear(currentYear)

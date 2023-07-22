@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -19,9 +20,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
 import com.example.alamiya_task.R
 import com.example.alamiya_task.common.util.Resource
+import com.example.alamiya_task.common.util.compassHandler
 import com.example.alamiya_task.databinding.FragmentQiblaBinding
 import com.example.alamiya_task.presentation.home.LocationHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +44,6 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import kotlin.math.atan2
 
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
     private lateinit var binding: FragmentQiblaBinding
@@ -54,10 +56,13 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
 
     // sensor
     private lateinit var sensorManager: SensorManager
-    private lateinit var gyroscope: Sensor
-    val lat = 0.0
-    val long = 0.0
-    var qabaDirection = 0.0
+    private var rotationVectorSensor: Sensor? = null
+    private val rotationMatrix = FloatArray(9)
+    private val orientationValues = FloatArray(3)
+    private var currentAzimuth = 0f
+
+    var lat = 0.0
+    var long = 0.0
 
     // polygon
     private val line = Polyline()
@@ -66,7 +71,6 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
     }
 
 
@@ -82,7 +86,7 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
         map.setTileSource(TileSourceFactory.MAPNIK)
         mapController = map.controller
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
 
 
 
@@ -105,10 +109,8 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
         locationHelper = LocationHelper(requireActivity() as AppCompatActivity)
         mapController.setZoom(3.5)
         detectLocations()
-        setMapCompass()
         initObservation()
-
-        Log.d("qiblaDireaction" , qiblaDirection.toString())
+        Log.d("qiblaDireaction", qiblaDirection.toString())
 
 
     }
@@ -116,7 +118,10 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
     override fun onResume() {
         super.onResume()
         map.onResume()
-        sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL)
+        rotationVectorSensor?.let {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+
     }
 
     override fun onPause() {
@@ -159,13 +164,6 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
             .add(m)
     }
 
-    private fun setMapCompass() {
-        // map compass
-        val compassOverlay =
-            CompassOverlay(context, InternalCompassOrientationProvider(context), map)
-        compassOverlay.enableCompass()
-        map.overlays.add(compassOverlay)
-    }
 
     fun animateZoom(startZoom: Double, endZoom: Double, durationMillis: Long) {
         val zoomDifference = kotlin.math.abs(startZoom - endZoom)
@@ -195,6 +193,8 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
                     // animation will zoom in map
                     animateZoom(3.5, 6.5, 1000)
                     if (location != null) {
+                        viewModel.getDirection(location.longitude, location.longitude)
+
                         // draw poly line
                         val startPoint = GeoPoint(location.latitude, location.longitude)
                         val endPoint = GeoPoint(21.4225, 39.8262)
@@ -241,15 +241,29 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
 
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        // Get the gyroscope sensor readings for rotation
-        val rotationX = event.values[0]
-        val rotationY = event.values[1]
-        //   val rotationZ = event.values[2]
-        viewModel.setDirection(calculateDirection(rotationX, rotationY))
 
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event?.sensor?.type == Sensor.TYPE_ROTATION_VECTOR) {
+            val rotationMatrix = FloatArray(9)
+            SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values)
+            val orientation = FloatArray(3)
+            SensorManager.getOrientation(rotationMatrix, orientation)
+            val azimuthInRadians = orientation[0]
+            val azimuthInDegrees = Math.toDegrees(azimuthInRadians.toDouble()).toFloat()
 
+            if (qiblaDirection != 0.0)
+                binding.compass.compassHandler(azimuthInDegrees, qiblaDirection)
+
+            rotateCompass(azimuthInDegrees)
+        }
     }
+
+
+    private fun rotateCompass(azimuth: Float) {
+        val rotation = -(azimuth - 90f) // Adjust the rotation to start from 90 degrees
+        binding.compass.rotation = rotation
+    }
+
 
     override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
         // Handle accuracy changes if needed
@@ -264,12 +278,16 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
 
 
     private fun initObservation() {
-        viewModel.qiblaDirection.observe(viewLifecycleOwner) { response ->
+        Log.d("test125481245", "done")
+        viewModel.qiblaDirection.observe(viewLifecycleOwner, Observer { response ->
+
             when (response) {
+
                 is Resource.Success -> {
+
                     response.data?.let {
-                        val d = response.data.data.direction
-                        qabaDirection = d
+                        qiblaDirection = it.data.direction
+                        Log.d("test1254812452", "done")
 
                     }
                 }
@@ -277,22 +295,22 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT)
                         .show()
+                    Log.d("test12548124", "done")
+
                 }
 
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    Log.d("test125481", "done")
+
+                }
 
             }
+        })
+        viewModel.qiblaDirection.observe(viewLifecycleOwner) {
 
         }
 
-        viewModel.direction.observe(viewLifecycleOwner) {
-            Log.d("dideaction" , it.toString())
-            if (qabaDirection==it){
-                binding.view.setBackgroundColor(Color.GREEN)
-            }else {
-                binding.view.setBackgroundColor(Color.RED)
-            }
-        }
+
     }
 
 

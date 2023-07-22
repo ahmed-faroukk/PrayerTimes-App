@@ -12,7 +12,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
 
-@Suppress("DEPRECATION")
 class LocationHelper(private val context: AppCompatActivity) {
 
     private val fusedLocationClient: FusedLocationProviderClient =
@@ -52,6 +51,9 @@ class LocationHelper(private val context: AppCompatActivity) {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSION_REQUEST_CODE
             )
+            fetchLocation(onLocationFetchedListener)
+
+
         }
     }
 

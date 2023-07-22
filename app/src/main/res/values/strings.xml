@@ -21,4 +21,7 @@
     <string name="iisha">Isha</string>
     <string name="S10_55_pm">10:55 PM</string>
     <string name="show_qibla_diraction_on_map">show Qibla Diraction on map</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

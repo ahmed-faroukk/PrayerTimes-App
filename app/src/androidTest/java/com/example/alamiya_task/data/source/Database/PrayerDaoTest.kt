@@ -41,6 +41,7 @@ class PrayerDaoTest {
     fun teardown() {
         database.close()
     }
+
     @Test
     fun savePrayersTimes() = runBlockingTest {
         val response = PrayerTimeResponse(1 , 550 , listOf() , "good")
@@ -50,6 +51,7 @@ class PrayerDaoTest {
 
         assertThat(table).isEqualTo(response)
     }
+
     @Test
     fun deleteShoppingItem() = runBlockingTest {
         val response = PrayerTimeResponse(1 , 550 , listOf() , "good")
