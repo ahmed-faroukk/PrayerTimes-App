@@ -5,18 +5,25 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.CountDownTimer
+import android.os.SystemClock
 import android.widget.RemoteViews
+import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import com.example.alamiya_task.R
+import com.example.alamiya_task.common.util.Constants.Companion.COUNTDOWN_TIME_KEY
+import com.example.alamiya_task.presentation.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Implementation of App Widget functionality.
  */
+@AndroidEntryPoint
 class countdownWidget : AppWidgetProvider() {
-    companion object {
-        private const val ACTION_UPDATE_COUNTDOWN = "action_update_countdown"
-        private const val COUNTDOWN_DURATION_MS = 60000L // 1 minute in milliseconds
-    }
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -36,22 +43,6 @@ class countdownWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
-        if (ACTION_UPDATE_COUNTDOWN == intent?.action) {
-            val appWidgetManager = AppWidgetManager.getInstance(context)
-            val appWidgetIds =
-                appWidgetManager.getAppWidgetIds(context?.let {
-                    ComponentName(
-                        it,
-                        countdownWidget::class.java
-                    )
-                })
-            for (appWidgetId in appWidgetIds) {
-                context?.let { updateAppWidget(it, appWidgetManager, appWidgetId) }
-            }
-        }
-    }
 }
 
 internal fun updateAppWidget(
@@ -59,25 +50,19 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int,
 ) {
-    // Calculate the time remaining for the countdown
-    val COUNTDOWN_DURATION_MS = 60000L // 1 minute in milliseconds
-    val currentTimeMillis = System.currentTimeMillis()
-    val endTimeMillis = currentTimeMillis + COUNTDOWN_DURATION_MS
-    val timeRemaining = endTimeMillis - currentTimeMillis
 
-    // Convert time remaining to HH:mm:ss format
-    val hours = TimeUnit.MILLISECONDS.toHours(timeRemaining)
-    val minutes = TimeUnit.MILLISECONDS.toMinutes(timeRemaining) % 60
-    val seconds = TimeUnit.MILLISECONDS.toSeconds(timeRemaining) % 60
+    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val timeMillis = preferences.getLong(COUNTDOWN_TIME_KEY, 0L)
 
-
-    val widgetText = context.getString(R.string.appwidget_text)
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.countdown_widget)
-    views.setTextViewText(
-        R.id.countDown,
-        String.format("%02d:%02d:%02d", hours, minutes, seconds)
-    )
+    // Calculate the remaining time in milliseconds
+    val currentTimeMillis = System.currentTimeMillis()
+    val remainingTimeMillis = timeMillis - currentTimeMillis
+
+    views.setChronometer(R.id.countDown,    (currentTimeMillis - timeMillis )/ 100000, "%02d hr %02d min %02d sec" , true)
+    views.setChronometerCountDown(R.id.countDown, true)//if you wa
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
+

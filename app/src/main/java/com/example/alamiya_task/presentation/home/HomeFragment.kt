@@ -1,6 +1,8 @@
 package com.example.alamiya_task.presentation.home
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.example.alamiya_task.R
+import com.example.alamiya_task.common.util.Constants.Companion.COUNTDOWN_TIME_KEY
 import com.example.alamiya_task.common.util.Resource
 import com.example.alamiya_task.common.util.formatTimeTo12Hour
 import com.example.alamiya_task.data.model.PrayerTimeResponse
@@ -117,6 +121,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     firstTime++
                     //get next prayer time
                     val time = nextPrayer(it)
+                    saveCountdownEndTime(requireContext() , time)
+
                     startCountdown(time / 1000)
                 }
 
@@ -179,6 +185,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    internal fun saveCountdownEndTime(context: Context, endTimeMillis: Long) {
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        preferences.edit().putLong(COUNTDOWN_TIME_KEY, endTimeMillis).apply()
+    }
+
     private var job: Job? = null
 
 
@@ -219,6 +230,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val newTime = convertTimeToMilliseconds(formattedTime)
         for (i in times) {
             val x = convertTimeToMilliseconds(i)
+
             index++
 
             if (newTime < x) {

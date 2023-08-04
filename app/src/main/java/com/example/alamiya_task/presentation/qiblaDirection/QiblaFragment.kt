@@ -88,8 +88,6 @@ class QiblaFragment : Fragment(R.layout.fragment_qibla), SensorEventListener {
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
 
-
-
         return binding.root
     }
 

@@ -2,64 +2,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.Alamiyatask.AppWidget.Container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:background="@drawable/shapeforlinear_24"
+    android:layout_height="wrap_content"
     android:theme="@style/Theme.Alamiyatask.AppWidgetContainer">
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:cardCornerRadius="30dp"
+
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:padding="10dp"
+
             >
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="15dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
                 >
                 <TextView
                     android:id="@+id/appwidget_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
                     android:contentDescription="@string/appwidget_text"
-                    android:text="Next Prayer Is"
-                    android:textSize="24sp"
+                    android:text=" Next Prayer Is  "
+                    android:textSize="23sp"
                     android:textStyle="bold|italic" />
                 <TextView
                     android:id="@+id/prayerName"
-                    style="@style/Widget.Alamiyatask.AppWidget.InnerView"
-                    android:layout_width="150dp"
+                    android:layout_width="60dp"
                     android:backgroundTint="#1C8722"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
-                    android:paddingStart="25dp"
                     android:contentDescription="@string/appwidget_text"
-                    android:gravity="center"
                     android:text="FAJR"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textColor="#4CAF50"
+                    android:textSize="20dp"
                     android:textStyle="bold|italic" />
             </LinearLayout>
-            <TextView
+            <Chronometer
+                android:gravity="center_horizontal"
                 android:id="@+id/countDown"
-                android:layout_width="150dp"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="8dp"
-                android:paddingStart="25dp"
+                android:layout_marginTop="10dp"
                 android:contentDescription="@string/appwidget_text"
-                android:gravity="center"
                 android:text="1:25:23"
                 android:textColor="#69DF6E"
                 android:textSize="29sp"
@@ -67,6 +58,6 @@
         </LinearLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>
