@@ -1,4 +1,4 @@
-# AlalmiyaAlhura-Task
+# PrayerTime-App
 </h1>
 <p dir="auto">
 <li> In the home screen, the app must fetch and show today's prayer times based on the user's location.</li>
@@ -9,7 +9,8 @@
 <li> Showing the current location title in the home screen.</li>
 <li> Navigate to the map screen to show Kaaba marker and current location marker.</li>
 <li> Showing Qibla direction line on the map screen.</li>
-<li> Change the live direction based on gyroscope sensor result (bonus points).</li>
+  <li> android widget for countdown </li>
+<li> Change the live direction based on rotationVector sensor result .</li>
 </p>
 
 
