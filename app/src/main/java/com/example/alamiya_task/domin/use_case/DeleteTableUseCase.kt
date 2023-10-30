@@ -1,0 +1,14 @@
+package com.example.alamiya_task.domin.use_case
+
+import com.example.alamiya_task.data.Repository.RepositoryImp
+import com.example.alamiya_task.domin.repository.repository
+import javax.inject.Inject
+
+class DeleteTableUseCase @Inject constructor(
+    private val repository: repository,
+) {
+
+    suspend operator fun invoke() {
+        repository.deleteAll()
+    }
+}
