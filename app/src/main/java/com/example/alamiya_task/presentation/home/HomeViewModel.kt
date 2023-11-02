@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.alamiya_task.common.util.Resource
 import com.example.alamiya_task.data.model.PrayerTimeResponse
-import com.example.alamiya_task.domin.use_case.PrayerUseCase
+import com.example.alamiya_task.domin.use_case.GetPrayersTimesUseCase
+import com.example.alamiya_task.domin.use_case.PrayerUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -15,9 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val prayerUseCase: PrayerUseCase,
-    app: Application,
-) : AndroidViewModel(app) {
+    private val prayerUseCase: PrayerUseCases,
+) : ViewModel() {
 
 
     //livedata objects
@@ -92,7 +93,7 @@ class HomeViewModel @Inject constructor(
             try {
 
                 val response =
-                    prayerUseCase.getPrayersTimes(year, month, latitude, longitude, method)
+                    prayerUseCase.getPrayersTimesUseCase(year, month, latitude, longitude, method)
                 _getPrayerTimeState.value = getPrayerTimeHandler(response)
 
             } catch (t: Throwable) {
@@ -119,18 +120,18 @@ class HomeViewModel @Inject constructor(
     // cashing
     fun saveAllPrayersTimes(response: PrayerTimeResponse) =
         viewModelScope.launch {
-            prayerUseCase.savePrayersTimes(response)
+            prayerUseCase.savePrayersTimesUseCase(response)
 
         }
 
 
     fun getAllPrayersTimes(): LiveData<PrayerTimeResponse> {
-        return prayerUseCase.getAllPrayersTimes()
+        return prayerUseCase.getAllPrayersTimesUseCase()
     }
 
     fun deleteAll() {
         viewModelScope.launch {
-            prayerUseCase.deleteTable()
+            prayerUseCase.deleteTableUseCase()
         }
     }
 
